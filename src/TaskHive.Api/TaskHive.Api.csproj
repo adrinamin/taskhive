@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaskHive.Core\TaskHive.Core.csproj" />
+    <ProjectReference Include="..\TaskHive.Application\TaskHive.Application.csproj" />
+    <ProjectReference Include="..\TaskHive.Infrastructure\TaskHive.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

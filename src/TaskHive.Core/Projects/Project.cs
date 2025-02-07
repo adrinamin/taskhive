@@ -1,7 +1,6 @@
 namespace TaskHive.Core.Projects;
 public class Project
 {
-
     public Guid Id;
 
     public required string Title { get; set; }

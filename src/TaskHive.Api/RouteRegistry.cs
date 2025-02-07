@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TaskHive.Api.Projects.Models;
-using TaskHive.Core.Projects;
+using TaskHive.Application.Interfaces.Services;
+using TaskHive.Application.Projects.Models;
 
 namespace TaskHive.Api;
 
@@ -11,10 +7,9 @@ public static class RouteRegistry
 {
     public static IEndpointRouteBuilder MapApiRoutes(this IEndpointRouteBuilder routes)
     {
-        routes.MapGet("/projects", () =>
+        routes.MapGet("/projects", (IProjectService<ProjectDto> projectService) =>
         {
-            ProjectDto[] projects = [new ProjectDto("project1", "John", new DateTime(2025, 4, 1, 0, 0, 0), DateTime.Now)];
-
+            ProjectDto[] projects = [.. projectService.GetProjectsAsync().Result];
             return projects;
         });
         return routes;
