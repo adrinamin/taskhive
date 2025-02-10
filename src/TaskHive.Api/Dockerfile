@@ -2,8 +2,8 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /source
 COPY . .
-RUN dotnet restore "./TaskHive.Api/TaskHive.Api.csproj"
-RUN dotnet publish "./TaskHive.Api/TaskHive.Api.csproj" -c Release -o /app --no-restore
+RUN dotnet restore "./src/TaskHive.Api/TaskHive.Api.csproj"
+RUN dotnet publish "./src/TaskHive.Api/TaskHive.Api.csproj" -c Release -o /app --no-restore
 
 # Runtime stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final

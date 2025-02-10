@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  taskhive-api:
+    build:
+      context: .
+      dockerfile: src/TaskHive.Api/Dockerfile
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80/
+      - DB_CONNECTION_STRING=${DB_CONNECTION_STRING}
+
+  taskhive-db:
+    image: "mcr.microsoft.com/mssql/server:2022-CU17-ubuntu-22.04"
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+      MSSQL_PID: "Developer"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - taskhive-db-data:/var/opt/mssql
+
+volumes:
+  taskhive-db-data:
