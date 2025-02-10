@@ -1,16 +1,15 @@
-using TaskHive.Application.Interfaces.Repositories;
-using TaskHive.Application.Interfaces.Services;
+using TaskHive.Application.Interfaces;
 using TaskHive.Application.Projects.Models;
 using TaskHive.Core.Projects;
 
 namespace TaskHive.Application.Projects.Services
 {
-    internal class ProjectService : IProjectService<ProjectDto>
+    internal class ProjectService : IApplicationService<ProjectDto>
     {
-        private readonly IProjectRepository<Project> _projectRepository;
+        private readonly IApplicationRepository<Project> _projectRepository;
         private readonly IMapper _mapper;
 
-        public ProjectService(IMapper mapper, IProjectRepository<Project> projectRepository)
+        public ProjectService(IMapper mapper, IApplicationRepository<Project> projectRepository)
         {
             this._mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             this._projectRepository = projectRepository ?? throw new ArgumentNullException(nameof(projectRepository));
@@ -26,6 +25,23 @@ namespace TaskHive.Application.Projects.Services
         {
             var project = await _projectRepository.GetProjectAsync(id);
             return _mapper.Map<ProjectDto>(project);
+        }
+
+        public async Task AddProjectAsync(ProjectDto dto)
+        {
+            var project = _mapper.Map<Project>(dto);
+            await _projectRepository.AddProjectAsync(project);
+        }
+
+        public async Task UpdateProjectAsync(ProjectDto dto)
+        {
+            var project = _mapper.Map<Project>(dto);
+            await _projectRepository.UpdateProjectAsync(project);
+        }
+
+        public async Task DeleteProjectAsync(Guid id)
+        {
+            await _projectRepository.DeleteProjectAsync(id);
         }
     }
 }

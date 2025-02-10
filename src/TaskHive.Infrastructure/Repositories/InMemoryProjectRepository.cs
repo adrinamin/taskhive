@@ -1,9 +1,9 @@
-using TaskHive.Application.Interfaces.Repositories;
+using TaskHive.Application.Interfaces;
 using TaskHive.Core.Projects;
 
 namespace TaskHive.Infrastructure.Repositories
 {
-    public class InMemoryProjectRepository : IProjectRepository<Project>
+    public class InMemoryProjectRepository : IApplicationRepository<Project>
     {
         private readonly List<Project> _projects =
         [
@@ -32,6 +32,28 @@ namespace TaskHive.Infrastructure.Repositories
         public Task<IEnumerable<Project>> GetProjectsAsync()
         {
             return Task.FromResult(_projects.AsEnumerable());
+        }
+
+        public Task AddProjectAsync(Project project)
+        {
+            project.Id = Guid.NewGuid();
+            _projects.Add(project);
+            return Task.CompletedTask;
+        }
+
+        public Task UpdateProjectAsync(Project project)
+        {
+            var existingProject = _projects.FirstOrDefault(p => p.Id == project.Id) ?? throw new KeyNotFoundException($"Project with id {project.Id} not found.");
+            _projects.Remove(existingProject);
+            _projects.Add(project);
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteProjectAsync(Guid id)
+        {
+            var project = _projects.FirstOrDefault(p => p.Id == id) ?? throw new KeyNotFoundException($"Project with id {id} not found.");
+            _projects.Remove(project);
+            return Task.CompletedTask;
         }
     }
 }

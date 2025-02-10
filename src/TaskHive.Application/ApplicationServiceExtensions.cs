@@ -1,4 +1,4 @@
-using TaskHive.Application.Interfaces.Services;
+using TaskHive.Application.Interfaces;
 using TaskHive.Application.Projects.Configuration;
 using TaskHive.Application.Projects.Models;
 using TaskHive.Application.Projects.Services;
@@ -9,7 +9,7 @@ namespace TaskHive.Application
     {
         public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
         {
-            services.AddTransient<IProjectService<ProjectDto>, ProjectService>();
+            services.AddTransient<IApplicationService<ProjectDto>, ProjectService>();
             services.AddAutoMapper(typeof(MappingProfile).Assembly);
             return services;
         }

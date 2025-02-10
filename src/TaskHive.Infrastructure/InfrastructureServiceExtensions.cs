@@ -1,4 +1,4 @@
-using TaskHive.Application.Interfaces.Repositories;
+using TaskHive.Application.Interfaces;
 using TaskHive.Core.Projects;
 using TaskHive.Infrastructure.Repositories;
 
@@ -8,7 +8,7 @@ namespace TaskHive.Infrastructure
     {
         public static IServiceCollection RegisterInfrastructure(this IServiceCollection services)
         {
-            services.AddTransient<IProjectRepository<Project>, InMemoryProjectRepository>();
+            services.AddTransient<IApplicationRepository<Project>, InMemoryProjectRepository>();
 
             return services;
         }
