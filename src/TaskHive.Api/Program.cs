@@ -5,6 +5,7 @@ using TaskHive.Api.Projects;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure CORS
+// needs to be adjusted for prod environments
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(
@@ -30,7 +31,6 @@ builder.Services.RegisterServices(builder);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseRouting();
