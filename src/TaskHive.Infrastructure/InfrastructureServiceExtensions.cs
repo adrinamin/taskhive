@@ -6,9 +6,12 @@ namespace TaskHive.Infrastructure
 {
     public static class InfrastructureServiceExtensions
     {
-        public static IServiceCollection RegisterInfrastructure(this IServiceCollection services)
+        public static IServiceCollection RegisterInfrastructure(this IServiceCollection services, string environment)
         {
-            services.AddTransient<IApplicationRepository<Project>, InMemoryProjectRepository>();
+            if (environment == "Development")
+            {
+                services.AddSingleton<IApplicationRepository<Project>, InMemoryProjectRepository>();
+            }
 
             return services;
         }

@@ -1,3 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace TaskHive.Application.Projects.Models;
 
-public record ProjectDto(string title, string description, DateTime dueDate, DateTime createdOn);
+public record ProjectDto(
+    Guid? Id,
+    [Required]
+    [StringLength(200, MinimumLength = 1)]
+    string Title,
+    [StringLength(1000)]
+    string? Description,
+    DateTime? DueDate,
+    DateTime? CreatedOn);
