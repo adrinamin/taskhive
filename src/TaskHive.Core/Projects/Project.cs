@@ -1,6 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace TaskHive.Core.Projects;
+
 public class Project
 {
+    [Key]
     public Guid Id;
 
     public required string Title { get; set; }
