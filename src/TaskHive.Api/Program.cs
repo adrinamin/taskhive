@@ -36,10 +36,12 @@ if (app.Environment.IsDevelopment())
     app.UseRouting();
     app.UseCors(); // Enable CORS
     app.MapOpenApi();
+    app.UseStaticFiles();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/openapi/v1.json", "TaskHive API V1");
+        c.DisplayRequestDuration();
     });
 }
 

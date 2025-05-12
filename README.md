@@ -26,6 +26,7 @@ Beware that the api docker container needs a valid dev certificate on the host m
 ```bash
 dotnet dev-certs https --clean # remove any existing certificates
 dotnet dev-certs https -ep "./aspnetcore-devcert.pfx" -p "YourPassword"
+dotnet dev-certs https --trust
 ```
 
 Double check the appsettings.Development.json file whether the certificate password is correct.
